@@ -1,5 +1,6 @@
 module Node.Crypto.Hash
   ( Hash
+  , Algorithm(..)
   , createHash
   , update
   , digest
@@ -19,8 +20,10 @@ import Node.Buffer (Buffer)
 -- | ```
 foreign import data Hash :: Type
 
-createHash :: String -> Effect Hash
-createHash alg = runEffectFn1 createHashImpl alg
+newtype Algorithm = Algorithm String
+
+createHash :: Algorithm -> Effect Hash
+createHash (Algorithm alg) = runEffectFn1 createHashImpl alg
 
 update :: Buffer -> Hash -> Effect Hash
 update buf hash = runEffectFn2 updateImpl buf hash

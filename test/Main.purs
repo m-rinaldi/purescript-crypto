@@ -21,7 +21,7 @@ main = runTest do
   test "hash" do
     result <- liftEffect do
       buf <- Buffer.fromString "dummy" UTF8
-      Hash.createHash "sha512" >>= Hash.update buf >>= Hash.digest >>= Buffer.toString Hex
+      Hash.createHash (Hash.Algorithm "sha512") >>= Hash.update buf >>= Hash.digest >>= Buffer.toString Hex
     Assert.equal "1692526aab84461a8aebcefddcba2b33fb5897ab180c53e8b345ae125484d0aaa35baf60487050be21ed8909a48eace93851bf139087ce1f7a87d97b6120a651" result
 
   test "hmac" do
